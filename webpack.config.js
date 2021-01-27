@@ -1,12 +1,16 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+  devServer: {
+    writeToDisk: true,
+  },
   mode: "development",
   entry: { index: "./src/index.js" },
   output: {
-    filename: "[name].bundle.js",
+    filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
   devtool: "inline-source-map",
@@ -18,9 +22,27 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Development",
     }),
-    require("postcss-import"),
-    require("tailwindcss"),
-    require("autoprefixer"),
-    require("postcss-preset-env")({ stage: 1 }),
+    new MiniCssExtractPlugin({
+      filename: "dist.bundle.css",
+    }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/, // Set loaders to transform files.
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
+      {
+        test: /\.css$/i,
+        exclude: /(node_modules)/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+      },
+    ],
+  },
 };
