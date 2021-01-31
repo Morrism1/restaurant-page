@@ -1,3 +1,5 @@
+import '../style.css';
+
 const contact = () => {
   const section = document.createElement('div');
 

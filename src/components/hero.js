@@ -1,3 +1,5 @@
+import '../style.css';
+
 const heroPage = () => {
   const section = document.createElement('section');
 

@@ -1,3 +1,5 @@
+import '../style.css';
+
 const navBar = () => {
   const app = document.createElement('div');
   const header = document.createElement('header');
