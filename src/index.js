@@ -6,7 +6,7 @@ import contact from './components/contactPage';
 import './style.css';
 
 const app = document.createElement('div');
-app.id = 'app';
+app.id = 'content';
 
 document.body.appendChild(app);
 
